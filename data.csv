@@ -442,3 +442,69 @@ une jolie fille,pos
 j'ai raté le train,neg
 je suis con,neg
 content,pos
+content,pos
+un joyeux lapin,pos
+génial,pos
+super,pos
+Les fruits et les légumes sont essentiels à une alimentation équilibrée.,pos
+Il a passé la soirée à lire un bouquin.,pos
+Bonne nuit. Fais de beaux rêves.,pos
+Cette chanson est si émouvante que j’en ai les larmes aux yeux.,pos
+Il y a beaucoup de choses que tu ne sais pas sur ma personnalité.,neg
+Tout le monde mérite une seconde chance.,pos
+Si vous ne disposez pas de ce programme vous pouvez le télécharger maintenant.,pos
+Le gros titre attira mon attention ce matin.,pos
+Gonzales offre un vélo à tous ses employés en Europe.,pos
+La créativité est une chose importante pour le développement de l’être humain.,pos
+Il ne faut pas préparer un plat différent pour chaque personne.,neg
+Je suis à court d'idées.,neg
+Les adieux sont toujours tristes.,neg
+Le temps est passé très rapidement.,neg
+J'ai de la toux et un peu de fièvre.,neg
+Il y a aussi des boîtes de nuit où l'on danse le flamenco.,pos
+L'entrée comprend une boisson.,pos
+Je propose que l'on sorte le vendredi.,pos
+Ça ne me plaît pas autant que de m'occuper des enfants.,neg
+Je n'ai eu le temps ni d'aller faire les courses ni de dire au revoir à ma mère.,neg
+J'aimerais essayer la jupe bleue rayée.,pos
+À cette heure il y a un trafic incroyable.,neg
+Il est argentin et il donne des cours de tennis.,pos
+Je suis enceinte de quatre mois.,pos
+J'ai un stimulateur cardiaque.,neg
+Je voudrais des piles pour cet appareil.,pos
+Nous avons besoin d'une ambulance.,neg
+Vous trouverez ça dans une droguerie.,pos
+Tout effort mérite récompense.,pos
+Ça coûte les yeux de la tête.,neg
+J’ai besoin de ton conseil.,pos
+Je me prépare au pire...,neg
+Je savais que c'était du plastique mais ça avait le goût du bois.,neg
+La manière la plus perfide de nuire à une cause consiste à la défendre délibérément avec de faux arguments.,neg
+Je suis contre l'utilisation de la mort en tant que punition. Je suis aussi contre son utilisation en tant que récompense.,neg
+La seconde moitié de la vie d'un homme n'est composée de rien sauf des habitudes qu'il a acquises pendant la première moitié.,neg
+Prends bien soin de toi.,pos
+La théorie scientifique que j'aime le plus est que les anneaux de Saturne sont entièrement composés de bagages perdus.,pos
+Une erreur connue est meilleure qu'une vérité inconnue.,pos
+Tout est théoriquement impossible jusqu'à ce que ce soit fait.,pos
+Seuls ceux qui se risqueront à aller trop loin saurons jusqu'où on peut aller.,pos
+Tout homme prend les limites de son propre champ de vision pour les limites du monde.,neg
+Nous pouvons voyager à travers le temps. Et nous le faisons à une vitesse remarquable d'une seconde par seconde.,pos
+Le réel problème n'est pas de savoir si les machines pensent mais si les hommes le font.,neg
+Mon intérêt se porte sur le futur parce que je vais passer le reste de ma vie là-bas.,pos
+Je comprends ce que tu es en train de dire.,pos
+La meilleure façon de prédire l'avenir est de l'inventer.,pos
+La publicité peut être décrite comme la science de stopper l'intelligence humaine assez longtemps pour en tirer de l'argent.,neg
+Je ne comprends pas pourquoi les gens sont effrayés par les nouvelles idées. Je suis effrayé par les anciennes.,neg
+L'espoir n'est pas une stratégie.,neg
+Le Japon est rempli de belle villes. Kyoto et Nara par exemple.,pos
+Le dossier a été adressé au ministère.,pos
+Ils ne sont courageux qu'en paroles.,neg
+Ils t'attendent devant la porte.,pos
+C'est une bonne affaire.,pos
+Ce n'est pas son affaire.,neg
+hitler,neg
+je suis un con,neg
+Ramasse tes affaires et va-t'en.,neg
+C'est une sale affaire.,neg
+Il est tiré d'affaire.,pos
+tu es beau,pos

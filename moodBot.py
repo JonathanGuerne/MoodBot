@@ -8,46 +8,53 @@ cl = None
 
 usersMood = {}
 
+
 def add(args):
-    with open('data.csv', 'a',encoding='utf-8') as outfile:
-        outfile.write(args['text']+","+args['label']+"\n")
+    data_update = [(args['text'], args['label'])]
+    cl.update(data_update)
+    with open('data_small.csv', 'a', encoding='utf-8') as outfile:
+        outfile.write(args['text'] + "," + args['label'] + "\n")
+
 
 def restart(cl):
     pass
 
-def anaylseSentence(cl,sentence):
-    #print(sentence)
+
+def analyseSentence(cl, sentence):
+    # print(sentence)
     prob_dist = cl.prob_classify(sentence)
     out = ""
-    out += "max "+prob_dist.max()+"\n"
-    out += "pos "+str(round(prob_dist.prob("pos"), 2))+"\n"
-    out += "neg "+str(round(prob_dist.prob("neg"), 2))+"\n"
+    out += "max " + prob_dist.max() + "\n"
+    out += "pos " + str(round(prob_dist.prob("pos"), 2)) + "\n"
+    out += "neg " + str(round(prob_dist.prob("neg"), 2)) + "\n"
     return out
 
 
 def printEmoticon(value):
     # :smiley: :grinning: :grin: :slight_smile: :neutral_face: :disappointed: :worried: :angry: :rage:
-    if(value <0.1):
+    if (value < 0.1):
         return ":rage:"
-    elif(value <0.2):
+    elif (value < 0.2):
         return ":angry:"
-    elif(value <0.3):
+    elif (value < 0.3):
         return ":worried:"
-    elif(value <0.4):
+    elif (value < 0.4):
         return ":disappointed:"
-    elif(value < 0.6):
+    elif (value < 0.6):
         return ":neutral_face:"
-    elif(value <0.7):
+    elif (value < 0.7):
         return ":slight_smile:"
-    elif(value<0.8):
+    elif (value < 0.8):
         return ":grin:"
-    elif(value<0.9):
+    elif (value < 0.9):
         return ":grinning:"
     else:
         return ":smiley:"
 
+
 def avg(l):
     return sum(l, 0.0) / len(l)
+
 
 @client.event
 async def on_ready():
@@ -55,6 +62,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+
 
 @client.event
 async def on_message(message):
@@ -70,20 +78,29 @@ async def on_message(message):
             output = ""
             for key, value in usersMood.items():
                 a = avg(value)
-                print(key,usersMood[key],a)
-                output += key+" "+printEmoticon(avg(value))+"\n"
+                print(key, usersMood[key], a)
+                output += key + " " + printEmoticon(avg(value)) + "\n"
             if output != "":
-                await client.send_message(message.channel,output)
+                await client.send_message(message.channel, output)
+        elif message.content.startswith("!reset"):
+            usersMood.pop(message.author.name, None)
         else:
             prob_dist = cl.prob_classify(message.content[6:])
             if message.author.name not in usersMood:
                 usersMood[message.author.name] = []
             usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
-            #await client.send_message(message.channel,anaylseSentence(cl,message.content[6:]))
+            # await client.send_message(message.channel,anaylseSentence(cl,message.content[6:]))
 
-with open('data.csv', 'r') as f:
+
+@client.event
+async def on_reaction_add(reaction, user):
+    print(str(reaction.count), "réactions")
+    await client.send_message(reaction.message.channel, chr(0x1F432))
+
+
+with open('data_small.csv', 'r') as f:
     cl = NaiveBayesClassifier(f, format="csv")
 
-with open('tokenfile.txt','r') as f:
+with open('tokenfile.txt', 'r') as f:
     for line in f:
         client.run(line)
