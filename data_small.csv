@@ -1,33 +1,5 @@
-je suis heureux,pos
-je suis joyeux,pos
-je suis content,pos
-il fait beau aujourd'hui,pos
-j'ai peur,neg
-je suis heureux,pos
-je suis joyeux,pos
-je suis content,pos
-chouette un nouveau film au cinéma,pos
-il fait froid,neg
-il fait tellement beau,pos
-c'est la fête,pos
-chouette,pos
-merde,neg
-c'est pas mal,pos
-connard,neg
-gentil,pos
-je t'aime,pos
-je ne t'aime pas,neg
-ça va être ta fête,neg
-je suis nul,neg
-Je ne supporte pas ce type.,neg
-Pour une fois dans ma vie je fais un bon geste... Et ça ne sert à rien.,neg
-Ne tenez aucun compte de ce qu'il dit.,neg
-Muiriel a 20 ans maintenant.,pos
-Je serai bientôt de retour.,pos
-Je ne sais pas.,neg
-J'en perds mes mots.,neg
-Ça ne va jamais finir.,neg
-Je ne sais simplement pas quoi dire...,neg
-je te brise les genous moi,neg
-je suis pas venu ici pour souffir oké ?,neg
-je danse le balais,pos
+fleur,pos
+maladie,neg
+joie,pos
+bonjour,neg
+ je souhaite tuez des gens,neg

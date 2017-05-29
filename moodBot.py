@@ -1,6 +1,7 @@
+import csv
+
 import discord
-import asyncio
-import os
+import math
 from textblob.classifiers import NaiveBayesClassifier
 
 client = discord.Client()
@@ -8,20 +9,18 @@ cl = None
 
 usersMood = {}
 
+emoijs_value ={}
+
+smiley_faces = [':rage',':angry',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:']
 
 def add(args):
     data_update = [(args['text'], args['label'])]
     cl.update(data_update)
-    with open('data_small.csv', 'a', encoding='utf-8') as outfile:
-        outfile.write(args['text'] + "," + args['label'] + "\n")
-
-
-def restart(cl):
-    pass
-
+    with open('data_small.csv', 'a', newline='\n', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow((args['text'],args['label']))
 
 def analyseSentence(cl, sentence):
-    # print(sentence)
     prob_dist = cl.prob_classify(sentence)
     out = ""
     out += "max " + prob_dist.max() + "\n"
@@ -32,25 +31,7 @@ def analyseSentence(cl, sentence):
 
 def printEmoticon(value):
     # :smiley: :grinning: :grin: :slight_smile: :neutral_face: :disappointed: :worried: :angry: :rage:
-    if (value < 0.1):
-        return ":rage:"
-    elif (value < 0.2):
-        return ":angry:"
-    elif (value < 0.3):
-        return ":worried:"
-    elif (value < 0.4):
-        return ":disappointed:"
-    elif (value < 0.6):
-        return ":neutral_face:"
-    elif (value < 0.7):
-        return ":slight_smile:"
-    elif (value < 0.8):
-        return ":grin:"
-    elif (value < 0.9):
-        return ":grinning:"
-    else:
-        return ":smiley:"
-
+    return smiley_faces[math.floor(value*10)]
 
 def avg(l):
     return sum(l, 0.0) / len(l)
@@ -67,14 +48,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author != client.user:
-        if message.content.startswith("!teach "):
-            entry = {}
-            str = message.content[7:].split(",")
-            entry['text'] = str[0]
-            entry['label'] = str[1]
-            add(entry)
-            await client.send_message(message.channel, "success")
-        elif message.content.startswith("!show"):
+        if message.content.startswith("!show"):
             output = ""
             for key, value in usersMood.items():
                 a = avg(value)
@@ -84,19 +58,28 @@ async def on_message(message):
                 await client.send_message(message.channel, output)
         elif message.content.startswith("!reset"):
             usersMood.pop(message.author.name, None)
-        else:
+        else :
             prob_dist = cl.prob_classify(message.content[6:])
             if message.author.name not in usersMood:
                 usersMood[message.author.name] = []
             usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
-            # await client.send_message(message.channel,anaylseSentence(cl,message.content[6:]))
+            if round(prob_dist.prob("pos"),2)<0.4 :
+                await client.send_message(message.channel,chr(0x1F921))
+            await client.send_message(message.channel,analyseSentence(cl,message.content[6:]))
 
 
 @client.event
 async def on_reaction_add(reaction, user):
-    print(str(reaction.count), "réactions")
-    await client.send_message(reaction.message.channel, chr(0x1F432))
+    if reaction.emoji in emoijs_value.keys() :
+        for part in reaction.message.content.split(","):
+            entry ={}
+            entry['text'] = part
+            entry['label'] = emoijs_value[reaction.emoji]
+            add(entry)
 
+with open('emoticonsData.csv','r') as f:
+    for line in f:
+        emoijs_value[chr(int(line.split(",")[0],0))]=line.split(",")[1][:-1]
 
 with open('data_small.csv', 'r') as f:
     cl = NaiveBayesClassifier(f, format="csv")
