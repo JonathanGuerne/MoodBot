@@ -5,7 +5,6 @@ When people become angry, Moodbot tries to clam down the situation by sending a 
 """
 
 import csv
-import math
 import discord
 from textblob.classifiers import NaiveBayesClassifier
 
@@ -43,7 +42,7 @@ def analyseSentence(cl, sentence):
 def printEmoticon(value):
     """Return the emotion as an emoticon."""
     # :smiley: :grinning: :grin: :slight_smile: :neutral_face: :disappointed: :worried: :angry: :rage:
-    return smiley_faces[math.floor(value*10)]
+    return smiley_faces[int(value*10)]
 
 
 def avg(l):
@@ -84,7 +83,7 @@ async def on_message(message):
                 temp_list = prev_analys_value[-10:]
                 prev_analys_value[:] = temp_list
             if len(prev_analys_value) == 10 and avg(prev_analys_value)<0.4 :
-                await client.send_message(message.channel,("Voici un clown pour détendre l'atmosphère : "+chr(0x1F921)))
+                await client.send_message(message.channel,("Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}"))
                 prev_analys_value.clear()
             print(analyseSentence(cl,message.content[6:]))
 
