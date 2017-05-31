@@ -10,7 +10,7 @@ def add(args):
     """
         Add a new input into the data file read by the bot.
     """
-    with open('data.csv', 'a', encoding='utf-8') as outfile:
+    with open('data_small.csv', 'a', encoding='utf-8') as outfile:
         outfile.write(args['text']+","+args['label']+"\n")
 
 
@@ -38,9 +38,6 @@ def readwords():
     os.rename('sentences2_1.csv', 'sentences2.csv')
 
 readwords()
-
-with open('data.csv', 'r') as f:
-    cl = NaiveBayesClassifier(f, format="csv")
 
 print("finish")
 
