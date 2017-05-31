@@ -1,7 +1,13 @@
+"""
+Moodbot is a bot that analyze the message from a discord server for guessing the mood of the people.
+
+When people become angry, Moodbot tries to clam down the situation by sending a clown.
+"""
+
 import csv
+import math
 
 import discord
-import math
 from textblob.classifiers import NaiveBayesClassifier
 
 client = discord.Client()
@@ -9,18 +15,22 @@ cl = None
 
 usersMood = {}
 
-emoijs_value ={}
+emoijs_value = {}
 
-smiley_faces = [':rage',':angry',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:']
+smiley_faces = [':rage', ':angry', ':worried:', ':disappointed:', ':neutral_face:', ':neutral_face:', ':slight_smile:', ':grin:', ':grinning:', ':smiley:']
+
 
 def add(args):
+    """Add the word in the classifier and in the memory."""
     data_update = [(args['text'], args['label'])]
     cl.update(data_update)
     with open('data_small.csv', 'a', newline='\n', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow((args['text'],args['label']))
+        writer.writerow((args['text'], args['label']))
+
 
 def analyseSentence(cl, sentence):
+    """Return the data from the analyse."""
     prob_dist = cl.prob_classify(sentence)
     out = ""
     out += "max " + prob_dist.max() + "\n"
@@ -30,15 +40,19 @@ def analyseSentence(cl, sentence):
 
 
 def printEmoticon(value):
+    """Return the emotion as an emoticon."""
     # :smiley: :grinning: :grin: :slight_smile: :neutral_face: :disappointed: :worried: :angry: :rage:
     return smiley_faces[math.floor(value*10)]
 
+
 def avg(l):
+    """Return the average value from a table."""
     return sum(l, 0.0) / len(l)
 
 
 @client.event
 async def on_ready():
+    """Executed when the bot is ready."""
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
@@ -47,6 +61,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    """Executed when a new message arrive in a channel (private/public)."""
     if message.author != client.user:
         if message.content.startswith("!show"):
             output = ""
@@ -58,26 +73,25 @@ async def on_message(message):
                 await client.send_message(message.channel, output)
         elif message.content.startswith("!reset"):
             usersMood.pop(message.author.name, None)
-        else :
+        else:
             prob_dist = cl.prob_classify(message.content[6:])
             if message.author.name not in usersMood:
                 usersMood[message.author.name] = []
             usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
-            if round(prob_dist.prob("pos"),2)<0.4 :
-                await client.send_message(message.channel,chr(0x1F921))
-            await client.send_message(message.channel,analyseSentence(cl,message.content[6:]))
+            if round(prob_dist.prob("pos"), 2) < 0.4:
+                await client.send_message(message.channel, chr(0x1F921))
+            await client.send_message(message.channel, analyseSentence(cl, message.content[6:]))
 
 
 @client.event
 async def on_reaction_add(reaction, user):
-    if reaction.emoji in emoijs_value.keys() :
+    """Executed when a new reaction is added to a message."""
+    if reaction.emoji in emoijs_value.keys():
         for part in reaction.message.content.split(","):
-            entry ={}
-            entry['text'] = part
-            entry['label'] = emoijs_value[reaction.emoji]
+            entry = {'text': part, 'label': emoijs_value[reaction.emoji]}
             add(entry)
 
-with open('emoticonsData.csv','r') as f:
+with open('emoticonsData.csv', 'r') as f:
     for line in f:
         emoijs_value[chr(int(line.split(",")[0],0))]=line.split(",")[1][:-1]
 
