@@ -16,6 +16,8 @@ usersMood = {}
 
 emoijs_value = {}
 
+prev_analys_value = []
+
 
 smiley_faces = [':rage',':angry',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
 
@@ -77,8 +79,13 @@ async def on_message(message):
             if message.author.name not in usersMood:
                 usersMood[message.author.name] = []
             usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
-            if round(prob_dist.prob("pos"),2)<0.4 :
+            prev_analys_value.append(round(prob_dist.prob("pos"),2))
+            if len(prev_analys_value)>10:
+                temp_list = prev_analys_value[-10:]
+                prev_analys_value[:] = temp_list
+            if len(prev_analys_value) == 10 and avg(prev_analys_value)<0.4 :
                 await client.send_message(message.channel,("Voici un clown pour détendre l'atmosphère : "+chr(0x1F921)))
+                prev_analys_value.clear()
             print(analyseSentence(cl,message.content[6:]))
 
 
