@@ -1,5 +1,82 @@
 fleur,pos
-maladie,neg
-joie,pos
-bonjour,neg
- je souhaite tuez des gens,neg
+mood bot est le meilleur,pos
+j'aime les vacances,pos
+je suis triste,neg
+la programmation concurrente c'est énervant 😦,neg
+dire des vilains mots ....,neg
+tu es génial,pos
+je t'aime,pos
+dylan est un délinquant,neg
+con,neg
+connard,neg
+fuck,neg
+Rira bien qui rira le dernier.,neg
+Le plus tôt sera le mieux.,pos
+Ce n'est pas tout à fait exact.,neg
+Il ne fait pas son âge.,pos
+J'aime les voyages.,pos
+Je ne m'attendais vraiment pas à ça de ta part.,neg
+J'attends depuis des heures.,neg
+Il mourut très âgé.,neg
+Voilà le hic.,neg
+Je ne le connais pas.,neg
+Ce film m'a plu.,pos
+Cinquante-deux pour cent des femmes britanniques préfèrent le chocolat au sexe.,pos
+Le fleuve a inondé toute la région.,neg
+Le problème s'est résolu tout seul.,pos
+Ces propos me déplaisent.,neg
+Vous n'êtes pas du tout concerné.,neg
+Ce sont des opinions tout à fait opposées.,neg
+Je ne suis pas du tout convaincu.,neg
+C'est trop beau pour être vrai.,pos
+La logique est une méthode systématique pour arriver à la mauvaise conclusion en toute confiance.,neg
+Mieux vaut tard que jamais.,pos
+Bon début promet bonne fin.,pos
+Péché avoué est à moitié pardonné.,pos
+Je ne l'ai pas fait exprès.,neg
+Tous les chemins mènent à Rome.,pos
+L'avenir appartient à ceux qui se lèvent tôt.,pos
+Tous les goûts sont dans la nature.,pos
+On ne peut pas être au four et au moulin.,neg
+On n'a rien sans rien.,neg
+Tout finit par se payer.,neg
+La musique adoucit les moeurs.,pos
+Apprends-moi comment on fait.,pos
+Qui va à la chasse perd sa place.,neg
+La vérité sort de la bouche des enfants.,pos
+Toute peine mérite salaire.,pos
+On n'est jamais si bien servi que par soi-même.,pos
+L'État n'a pas su répondre à l'attente des citoyens.,neg
+Je n'attends rien de ta part.,neg
+Il n'y a aucun doute.,pos
+Il n'y a aucune solution.,neg
+Je ne savais pas qu'il buvait autant.,neg
+C'est bien fait.,pos
+C'est quelqu'un de bien.,pos
+Fais comme bon te semble.,pos
+Il n'y avait pas âme qui vive.,neg
+J'ai un chat dans la gorge.,neg
+Faites comme chez vous.,pos
+Je ne peux pas dire le contraire.,pos
+Je n'en veux plus.,neg
+Je vais me baigner.,pos
+Nous sommes partis en train.,pos
+Si on mange trop on grossit.,neg
+Je savais qu'il accepterait.,pos
+Je suis allé boire une bière avec des amis.,pos
+Il a sauté par la fenêtre.,neg
+Elles se sont disputées.,neg
+J'ai mangé du caviar.,pos
+Ce couteau m'a beaucoup servi.,pos
+Vous vous êtes trompé de clé.,neg
+J'ai réussi à entrer.,pos
+Il faut s'attendre au pire.,neg
+Ils ne savent même pas pourquoi.,neg
+J'ai fait de bons achats.,pos
+J'ai rencontré des personnes sympathiques.,pos
+J'ai parlé à des amis.,pos
+la vie est nulle de ce côté du monde,neg
+j'ai un cp demain,neg
+j'ai un repas demain,pos
+les tests sont difficiles,neg
+test,neg

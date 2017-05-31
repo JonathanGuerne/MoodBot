@@ -1,5 +1,4 @@
 import csv
-
 import discord
 import math
 from textblob.classifiers import NaiveBayesClassifier
@@ -11,7 +10,7 @@ usersMood = {}
 
 emoijs_value ={}
 
-smiley_faces = [':rage',':angry',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:']
+smiley_faces = [':rage',':angry',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
 
 def add(args):
     data_update = [(args['text'], args['label'])]
@@ -64,15 +63,16 @@ async def on_message(message):
                 usersMood[message.author.name] = []
             usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
             if round(prob_dist.prob("pos"),2)<0.4 :
-                await client.send_message(message.channel,chr(0x1F921))
-            await client.send_message(message.channel,analyseSentence(cl,message.content[6:]))
+                await client.send_message(message.channel,("Voici un clown pour détendre l'atmosphère : "+chr(0x1F921)))
+            print(analyseSentence(cl,message.content[6:]))
 
 
 @client.event
 async def on_reaction_add(reaction, user):
-    if reaction.emoji in emoijs_value.keys() :
+    if reaction.message.author != client.user and reaction.emoji in emoijs_value.keys() :
         for part in reaction.message.content.split(","):
             entry ={}
+            part = part.strip()
             entry['text'] = part
             entry['label'] = emoijs_value[reaction.emoji]
             add(entry)
