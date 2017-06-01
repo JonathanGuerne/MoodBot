@@ -20,6 +20,8 @@ prev_analys_value = []
 
 
 smiley_faces = [':rage',':angry',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
+# The duplicated values are necessary.
+
 
 def add(args):
     """Add the word in the classifier and in the memory."""
