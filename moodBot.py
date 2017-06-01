@@ -7,6 +7,7 @@ When people become angry, Moodbot tries to clam down the situation by sending a 
 import csv
 import discord
 from textblob.classifiers import NaiveBayesClassifier
+from statistics import mean
 
 client = discord.Client()
 cl = None
@@ -45,11 +46,6 @@ def printEmoticon(value):
     return smiley_faces[int(value*10)]
 
 
-def avg(l):
-    """Return the average value from a table."""
-    return sum(l, 0.0) / len(l)
-
-
 @client.event
 async def on_ready():
     """Executed when the bot is ready."""
@@ -66,9 +62,9 @@ async def on_message(message):
         if message.content.startswith("!show"):
             output = ""
             for key, value in usersMood.items():
-                a = avg(value)
+                a = mean(value)
                 print(key, usersMood[key], a)
-                output += key + " " + printEmoticon(avg(value)) + "\n"
+                output += key + " " + printEmoticon(mean(value)) + "\n"
             if output != "":
                 await client.send_message(message.channel, output)
         elif message.content.startswith("!reset"):
@@ -82,7 +78,7 @@ async def on_message(message):
             if len(prev_analys_value)>10:
                 temp_list = prev_analys_value[-10:]
                 prev_analys_value[:] = temp_list
-            if len(prev_analys_value) == 10 and avg(prev_analys_value)<0.4 :
+            if len(prev_analys_value) == 10 and mean(prev_analys_value)<0.4 :
                 await client.send_message(message.channel,("Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}"))
                 prev_analys_value.clear()
             print(analyseSentence(cl,message.content[6:]))
