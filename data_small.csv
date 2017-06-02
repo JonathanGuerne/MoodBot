@@ -82,3 +82,109 @@ les tests sont difficiles,neg
 test,neg
 connard,neg
 méchant,neg
+Trop cool,pos
+Trop cool,pos
+Stop spam please,neg
+cool,pos
+cool,pos
+tu es un gros connard,neg
+tu es un gros connard,neg
+connard,neg
+cool,pos
+Je vais me pendre,neg
+Je vais me pendre,neg
+Mon grand-père est mort,neg
+Je suis content de te revoir.,pos
+Ceux qui le connaissent l'apprécient.,pos
+Dis-moi ce qui est arrivé.,neg
+Il ne fait que pleurer.,neg
+Il est plus facile de s'amuser que de travailler.,pos
+Tu dois travailler davantage.,neg
+C'est plus difficile que tu ne crois.,neg
+Il m'a dit qu'il irait à Venise.,pos
+L'esprit est fort mais la chair est faible.,neg
+Il me semble que le train est en retard.,neg
+Je ne sais pas si j'aurai le temps de le faire.,neg
+La voiture ne veut pas démarrer.,neg
+Son jardin est une œuvre d'art.,pos
+Laisse tomber. Ça n'en vaut pas la peine.,neg
+Il m'a trompé.,neg
+Nous n'aimons pas la pluie.,neg
+Ne nous précipitons pas.,neg
+Je dois prendre des médicaments.,neg
+Nara est une ville calme et jolie.,pos
+Je me promène dans un parc.,pos
+Mon passe-temps est d'écouter de la musique.,pos
+Elle vend de la drogue dans les lieux de concerts.,neg
+J'ai enterré mon chien au cimetière pour animaux de compagnie.,neg
+Ils ont oublié de fermer la porte à clé.,neg
+Même la chirurgie esthétique ne pourra rien faire pour ta laideur.,neg
+Elle est en colère contre moi.,neg
+J'ai des piqûres de moustiques partout sur le bras.,neg
+Il est possible de réaliser des profits lorsque les cours baissent.,pos
+J'ai la peau extrêmement blanche et je ne bronze pas du tout.,neg
+Ses yeux brillaient de joie.,pos
+Un éléphant en colère pousse la barrière de son enclos et éjecte le gardien.,neg
+Je n'ai pas perdu de poids.,neg
+Cela ne me fait rien d'attendre.,neg
+Je trouvais difficile d'être gentil envers les autres.,neg
+Je ne vais pas bien du tout.,neg
+Je me suis cassé la jambe.,neg
+J'ai honte de la paresse de mon fils.,neg
+J'aime courir.,pos
+Je ne suis pas bon en natation et pas plus à la course.,neg
+Je ne pouvais pas me faire entendre à cause du bruit.,neg
+Je n'ai pas encore appris à conduire.,neg
+Je me suis étendu sur l'herbe.,pos
+Je suis entièrement d'accord avec vous.,pos
+J'aime l'astrologie.,pos
+J'aime pêcher dans la rivière.,pos
+J'ai été grondé par mon professeur.,neg
+Je respecte beaucoup mon enseignant.,pos
+Je ne suis pas un enseignant.,neg
+Je suis allé au parc samedi dernier.,pos
+Je l'ai vu le week-end dernier.,pos
+J'étais à Londres le mois dernier.,pos
+J'en ai marre,neg
+je suis heureux,pos
+j'ai vu de très jolis oiseaux,pos
+je me suis mangé un train,neg
+tu vas manger un gateau,pos
+tu vas manger un gateau,pos
+Je me suis mangé un train,neg
+Je me suis mangé un train,neg
+Je me suis mangé un train,neg
+Je me suis mangé une fenêtre,neg
+J'ai ouvert la fenêtre,pos
+J'ai ouvert la fenêtre,pos
+J'ai regarder par la fenêtre,pos
+J'ai regardé par la fenêtre,neg
+il fait moche,neg
+il ets le plus fort,pos
+le joli chat,pos
+le joli chat,pos
+je te brise les genoux avec panache,neg
+je te tue,neg
+c'est la fête,pos
+c'est la fête,pos
+nous fêtons son anniversaire,pos
+ca va être ta fête connard,neg
+On a un cours de Genie Logiciel,neg
+Je suis un génie,pos
+Je suis un génie,pos
+christophe est-il malade ?,neg
+super chouette,pos
+oh non,neg
+je vais à la piscine,pos
+j'ai écrasé un iench,neg
+tu as une tâche,neg
+j'ai une tâche,pos
+tu as une tâche,neg
+tu es une petite merde,neg
+tu as une sale guele toi,neg
+les nazis,neg
+c'est tout ce que j'aime,pos
+je  suis heureux,pos
+je  suis heureux,pos
+je suis un joyeux petit lapin,pos
+c'est très très drôle,pos

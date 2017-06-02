@@ -18,32 +18,34 @@ emoijs_value = {}
 
 prev_analys_value = []
 
+rate_on_server = False
 
-smiley_faces = [':rage',':angry',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
+smiley_faces = [':rage', ':angry:', ':worried:', ':disappointed:', ':neutral_face:', ':neutral_face:', ':slight_smile:',
+                ':grin:', ':grinning:', ':smiley:', ':smiley:']
+
 
 def add(args):
     """Add the word in the classifier and in the memory."""
     data_update = [(args['text'], args['label'])]
     cl.update(data_update)
-    with open('data_small.csv', 'a', newline='\n', encoding='utf-8') as csvfile:
+    with open('data_small.csv', 'a', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow((args['text'], args['label']))
 
 
-def analyseSentence(cl, sentence):
+def analyse_sentence(cl, sentence):
     """Return the data from the analyse."""
     prob_dist = cl.prob_classify(sentence)
-    out = ""
-    out += "max " + prob_dist.max() + "\n"
-    out += "pos " + str(round(prob_dist.prob("pos"), 2)) + "\n"
-    out += "neg " + str(round(prob_dist.prob("neg"), 2)) + "\n"
-    return out
+    return f"""\
+max {prob_dist.max()}
+pos {(round(prob_dist.prob("pos"), 2))}
+neg {(round(prob_dist.prob("neg"), 2))}
+    """
 
 
-def printEmoticon(value):
+def print_emoticon(value):
     """Return the emotion as an emoticon."""
-    # :smiley: :grinning: :grin: :slight_smile: :neutral_face: :disappointed: :worried: :angry: :rage:
-    return smiley_faces[int(value*10)]
+    return smiley_faces[int(value * 10)]
 
 
 @client.event
@@ -58,47 +60,59 @@ async def on_ready():
 @client.event
 async def on_message(message):
     """Executed when a new message arrive in a channel (private/public)."""
+    global rate_on_server
     if message.author != client.user:
         if message.content.startswith("!show"):
             output = ""
             for key, value in usersMood.items():
                 a = mean(value)
                 print(key, usersMood[key], a)
-                output += key + " " + printEmoticon(mean(value)) + "\n"
+                output += key + " " + print_emoticon(mean(value)) + "\n"
             if output != "":
                 await client.send_message(message.channel, output)
         elif message.content.startswith("!reset"):
             usersMood.pop(message.author.name, None)
-        else:
+        elif message.content.startswith("!rate"):
+            if "on" in message.content:
+                rate_on_server = True
+            elif "off" in message.content:
+                rate_on_server = False
+        elif message.content != "":
             prob_dist = cl.prob_classify(message.content[6:])
             if message.author.name not in usersMood:
                 usersMood[message.author.name] = []
             usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
-            prev_analys_value.append(round(prob_dist.prob("pos"),2))
-            if len(prev_analys_value)>10:
+            prev_analys_value.append(round(prob_dist.prob("pos"), 2))
+            if len(prev_analys_value) > 10:
                 temp_list = prev_analys_value[-10:]
                 prev_analys_value[:] = temp_list
-            if len(prev_analys_value) == 10 and mean(prev_analys_value)<0.4 :
-                await client.send_message(message.channel,("Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}"))
+            if len(prev_analys_value) == 10 and mean(prev_analys_value) < 0.4:
+                await client.send_message(message.channel,
+                                          ("Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}"))
                 prev_analys_value.clear()
-            print(analyseSentence(cl,message.content[6:]))
-
+            an_sen = analyse_sentence(cl, message.content[6:])
+            if rate_on_server:
+                await client.send_message(message.channel,an_sen)
+            print(an_sen)
 
 
 @client.event
 async def on_reaction_add(reaction, user):
     """Executed when a new reaction is added to a message."""
-    if reaction.message.author != client.user and reaction.emoji in emoijs_value.keys() :
+    if reaction.message.author != client.user and reaction.emoji in emoijs_value.keys():
         for part in reaction.message.content.split(","):
-            entry ={}
+            entry = {}
+            part = part.replace('\n', ' ').replace('\r', '')
             part = part.strip()
             entry['text'] = part
             entry['label'] = emoijs_value[reaction.emoji]
-            add(entry)
+            if part != "":
+                add(entry)
+
 
 with open('emoticonsData.csv', 'r') as f:
     for line in f:
-        emoijs_value[chr(int(line.split(",")[0],0))]=line.split(",")[1][:-1]
+        emoijs_value[chr(int(line.split(",")[0], 0))] = line.split(",")[1][:-1]
 
 with open('data_small.csv', 'r') as f:
     cl = NaiveBayesClassifier(f, format="csv")
