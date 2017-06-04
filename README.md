@@ -36,6 +36,11 @@ Cette librairie permet de créer des classifier pour d'autre langue (le françai
 `!rate on`
 * Desactiver l'envoi des données de debug :
 `!rate off`
-* Apprendre un phrase au bot :
-`!teach phrase,pos/neg`
-Par exemple : `!teach j'ai passé une bonne soirée,pos`
+
+
+### Apprendre un phrase au bot
+
+Il y a deux façons d’entraîner le bot :
+Utiliser le code dans le fichier train.py pour lui apprendre les phrases stockées dans le fichier sentence2.csv ou lorsque le bot est en fonction on peut réagir à un message avec un emoticon heureux ou triste en fonction du message.
+ 
+
