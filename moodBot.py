@@ -6,6 +6,7 @@ When people become angry, Moodbot tries to clam down the situation by sending a 
 
 import csv
 import discord
+import re
 from textblob.classifiers import NaiveBayesClassifier
 from statistics import mean
 
@@ -20,7 +21,7 @@ prev_analys_value = []
 
 rate_on_server = False
 
-smiley_faces = [':rage',':angry',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
+smiley_faces = [':rage',':angry:',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
 # The duplicated values are necessary.
 
 def add(args):
@@ -37,8 +38,8 @@ def analyse_sentence(cl, sentence):
     prob_dist = cl.prob_classify(sentence)
     return f"""\
 max {prob_dist.max()}
-pos {(round(prob_dist.prob("pos"), 2))}
-neg {(round(prob_dist.prob("neg"), 2))}
+pos {prob_dist.prob('pos'):.2f}
+neg {prob_dist.prob('neg'):.2f}
     """
 
 
@@ -72,40 +73,44 @@ async def on_message(message):
         elif message.content.startswith("!reset"):
             usersMood.pop(message.author.name, None)
         elif message.content.startswith("!rate"):
-            if "on" in message.content:
+            if re.search(r'\bon\b', message.content):
                 rate_on_server = True
-            elif "off" in message.content:
+            elif re.search(r'\boff\b', message.content):
                 rate_on_server = False
-        elif message.content != "":
-            prob_dist = cl.prob_classify(message.content[6:])
-            if message.author.name not in usersMood:
-                usersMood[message.author.name] = []
-            usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
-            prev_analys_value.append(round(prob_dist.prob("pos"), 2))
-            if len(prev_analys_value) > 10:
-                temp_list = prev_analys_value[-10:]
-                prev_analys_value[:] = temp_list
-            if len(prev_analys_value) == 10 and mean(prev_analys_value) < 0.4:
-                await client.send_message(message.channel,"Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}")
-                prev_analys_value.clear()
-            an_sen = analyse_sentence(cl, message.content[6:])
-            if rate_on_server:
-                await client.send_message(message.channel,an_sen)
-            print(an_sen)
+        else:
+            content = re.sub(r'([a-z]*):(//)?\S*\.+([^\s]*)', '', message.content).strip()
+            content = ' '.join(content.split())
+            if content != "":
+                prob_dist = cl.prob_classify(message.content)
+                if message.author.name not in usersMood:
+                    usersMood[message.author.name] = []
+                usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
+                prev_analys_value.append(round(prob_dist.prob("pos"), 2))
+                if len(prev_analys_value) > 10:
+                    temp_list = prev_analys_value[-10:]
+                    prev_analys_value[:] = temp_list
+                if len(prev_analys_value) == 10 and mean(prev_analys_value) < 0.4:
+                    await client.send_message(message.channel,"Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}")
+                    prev_analys_value.clear()
+                an_sen = analyse_sentence(cl, message.content)
+                if rate_on_server:
+                    await client.send_message(message.channel,an_sen)
+                print(an_sen)
 
 
 @client.event
 async def on_reaction_add(reaction, user):
     """Executed when a new reaction is added to a message."""
-    if reaction.message.author != client.user and reaction.emoji in emojis_value.keys():
-        for part in reaction.message.content.split(","):
-            entry = {}
-            part = part.replace('\n', ' ').replace('\r', '')
-            part = part.strip()
-            entry['text'] = part
-            entry['label'] = emojis_value[reaction.emoji]
-            if part != "":
-                add(entry)
+    if reaction.message.author != client.user and reaction.emoji in emoijs_value.keys():
+        for line in reaction.message.content.splitlines():
+            for part in line.split(","):
+                entry = {}
+                part = re.sub(r'([a-z]*):(//)?\S*\.+([^\s]*)', '', part).strip()
+                part = ' '.join(part.split())
+                entry['text'] = part
+                entry['label'] = emoijs_value[reaction.emoji]
+                if part != "":
+                    add(entry)
 
 
 with open('emoticonsData.csv', 'r', newline='', encoding='utf-8') as f:
