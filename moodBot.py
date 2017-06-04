@@ -14,7 +14,7 @@ cl = None
 
 usersMood = {}
 
-emoijs_value = {}
+emojis_value = {}
 
 prev_analys_value = []
 
@@ -86,8 +86,7 @@ async def on_message(message):
                 temp_list = prev_analys_value[-10:]
                 prev_analys_value[:] = temp_list
             if len(prev_analys_value) == 10 and mean(prev_analys_value) < 0.4:
-                await client.send_message(message.channel,
-                                          ("Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}"))
+                await client.send_message(message.channel,"Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}")
                 prev_analys_value.clear()
             an_sen = analyse_sentence(cl, message.content[6:])
             if rate_on_server:
@@ -98,20 +97,21 @@ async def on_message(message):
 @client.event
 async def on_reaction_add(reaction, user):
     """Executed when a new reaction is added to a message."""
-    if reaction.message.author != client.user and reaction.emoji in emoijs_value.keys():
+    if reaction.message.author != client.user and reaction.emoji in emojis_value.keys():
         for part in reaction.message.content.split(","):
             entry = {}
             part = part.replace('\n', ' ').replace('\r', '')
             part = part.strip()
             entry['text'] = part
-            entry['label'] = emoijs_value[reaction.emoji]
+            entry['label'] = emojis_value[reaction.emoji]
             if part != "":
                 add(entry)
 
 
-with open('emoticonsData.csv', 'r') as f:
-    for line in f:
-        emoijs_value[chr(int(line.split(",")[0], 0))] = line.split(",")[1][:-1]
+with open('emoticonsData.csv', 'r', newline='', encoding='utf-8') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        emojis_value[chr(int(row[0], 0))] = row[1]
 
 with open('data_small.csv', 'r') as f:
     cl = NaiveBayesClassifier(f, format="csv")
