@@ -81,7 +81,7 @@ async def on_message(message):
             content = re.sub(r'([a-z]*):(//)?\S*\.+([^\s]*)', '', message.content).strip()
             content = ' '.join(content.split())
             if content != "":
-                prob_dist = cl.prob_classify(message.content)
+                prob_dist = cl.prob_classify(message.clean_content)
                 if message.author.name not in usersMood:
                     usersMood[message.author.name] = []
                 usersMood[message.author.name].append(round(prob_dist.prob("pos"), 2))
@@ -92,7 +92,7 @@ async def on_message(message):
                 if len(prev_analys_value) == 10 and mean(prev_analys_value) < 0.4:
                     await client.send_message(message.channel,"Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}")
                     prev_analys_value.clear()
-                an_sen = analyse_sentence(cl, message.content)
+                an_sen = analyse_sentence(cl, message.clean_content)
                 if rate_on_server:
                     await client.send_message(message.channel,an_sen)
                 print(an_sen)
@@ -102,7 +102,7 @@ async def on_message(message):
 async def on_reaction_add(reaction, user):
     """Executed when a new reaction is added to a message."""
     if reaction.message.author != client.user and reaction.emoji in emoijs_value.keys():
-        for line in reaction.message.content.splitlines():
+        for line in reaction.message.clean_content.splitlines():
             for part in line.split(","):
                 entry = {}
                 part = re.sub(r'([a-z]*):(//)?\S*\.+([^\s]*)', '', part).strip()
