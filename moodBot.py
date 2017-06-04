@@ -101,14 +101,14 @@ async def on_message(message):
 @client.event
 async def on_reaction_add(reaction, user):
     """Executed when a new reaction is added to a message."""
-    if reaction.message.author != client.user and reaction.emoji in emoijs_value.keys():
+    if reaction.message.author != client.user and reaction.emoji in emojis_value.keys():
         for line in reaction.message.clean_content.splitlines():
             for part in line.split(","):
                 entry = {}
                 part = re.sub(r'([a-z]*):(//)?\S*\.+([^\s]*)', '', part).strip()
                 part = ' '.join(part.split())
                 entry['text'] = part
-                entry['label'] = emoijs_value[reaction.emoji]
+                entry['label'] = emojis_value[reaction.emoji]
                 if part != "":
                     add(entry)
 
@@ -116,7 +116,7 @@ async def on_reaction_add(reaction, user):
 with open('emoticonsData.csv', 'r', newline='', encoding='utf-8') as f:
     reader = csv.reader(f)
     for row in reader:
-        emojis_value[chr(int(row[0], 0))] = row[1]
+        emojis_value[row[0]] = row[1]
 
 with open('data_small.csv', 'r') as f:
     cl = NaiveBayesClassifier(f, format="csv")
