@@ -95,7 +95,7 @@ async def on_message(message):
                 an_sen = analyse_sentence(cl, message.clean_content)
                 if rate_on_server:
                     await client.send_message(message.channel,an_sen)
-                print(an_sen)
+                print(f"{content}\n{an_sen}")
 
 
 @client.event
