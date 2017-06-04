@@ -25,6 +25,10 @@ Cette librairie permet de créer des classifier pour d'autre langue (le françai
 |Discord       |`discord`      |>=0.16.8|
 |TextBlob      |`textblob`     |>=0.12.0|
 
+Après l'installation de `textblob` il faudra executer la commande suivante pour télécharger les modèles pour NLTK.
+
+`python -m textblob.download_corpora`
+
 
 ## Utilisation
 
