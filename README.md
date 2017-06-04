@@ -17,6 +17,8 @@ Cette librairie permet de créer des classifier pour d'autre langue (le françai
 1. Installer les bibliothèques necessaire (voir section Requirement).
 2. Créer un fichier token contenant le token pour la connexion avec Discord.
 3. Mettre les fichiers contenant les phrases.
+  * data_small.csv Qui contient des phrases en français ainsi que la mémoire du bot.
+  * emoticonData.csv Qui contient les informations sur les emojis pour pouvoir mémoriser les phrases ([Données emojis](http://kt.ijs.si/data/Emoji_sentiment_ranking/index.html))
 
 ### Requirement
 
