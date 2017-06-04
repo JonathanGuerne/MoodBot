@@ -22,8 +22,8 @@ Cette librairie permet de créer des classifier pour d'autre langue (le françai
 
 | Bibliothéque | Nom du paquet | Version |
 |--------------|---------------|---------|
-|Discord       |`discord`      |>3.10|
-|TextBlob      |`textblob`     |>3.10|
+|Discord       |`discord`      |>=0.16.8|
+|TextBlob      |`textblob`     |>=0.12.0|
 
 
 ## Utilisation
