@@ -3,7 +3,7 @@ Le MoodBot est un bot discord analysant les messages envoyés sur les channels d
 dans le but de trouver l'émotion de son émetteur.
 
 Le MoodBot suit aussi l'évolution de la conversation de manière à detecter si la conversation devient tendue.
-Si elle le devient, il envoi le message `Voici un clown pour détendre l'atmosphère : 🤡`.
+Si elle le devient, il envoi le message `Voici un clown pour détendre l'atmosphère : :clown:`.
 
 Le MoodBot, se basant sur une librairie utilisant le machine learning, a la possibilité d'apprendre en se basant sur les réactions aux messages sur le channel.
 
