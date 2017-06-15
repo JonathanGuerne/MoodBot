@@ -7,6 +7,7 @@ When people become angry, Moodbot tries to clam down the situation by sending a 
 import csv
 import discord
 import re
+import threading
 from textblob.classifiers import NaiveBayesClassifier
 from statistics import mean
 
@@ -23,6 +24,14 @@ rate_on_server = False
 
 smiley_faces = [':rage',':angry:',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
 # The duplicated values are necessary.
+
+class WritingThread(threading.Thread):
+    def run(self):
+        add(self.entry)
+
+    def __init__(self,entry):
+        super(WritingThread,self).__init__()
+        self.entry=entry
 
 def add(args):
     """Add the word in the classifier and in the memory."""
@@ -110,7 +119,8 @@ async def on_reaction_add(reaction, user):
                 entry['text'] = part
                 entry['label'] = emojis_value[reaction.emoji]
                 if part != "":
-                    add(entry)
+                    writingThread = WritingThread(entry)
+                    writingThread.start()
 
 
 with open('emoticonsData.csv', 'r', newline='', encoding='utf-8') as f:
