@@ -20,9 +20,9 @@ emojis_value = {}
 
 prev_analys_value = []
 
-rate_on_server = False
+rate_on_server = {}
 
-smiley_faces = [':rage',':angry:',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
+smiley_faces = [':rage:',':angry:',':worried:',':disappointed:',':neutral_face:',':neutral_face:',':slight_smile:',':grin:',':grinning:',':smiley:',':smiley:']
 # The duplicated values are necessary.
 
 class WritingThread(threading.Thread):
@@ -70,6 +70,8 @@ async def on_ready():
 async def on_message(message):
     """Executed when a new message arrive in a channel (private/public)."""
     global rate_on_server
+    if message.channel not in rate_on_server:
+        rate_on_server[message.channel]=False
     if message.author != client.user:
         if message.content.startswith("!show"):
             output = ""
@@ -83,9 +85,9 @@ async def on_message(message):
             usersMood.pop(message.author.name, None)
         elif message.content.startswith("!rate"):
             if re.search(r'\bon\b', message.content):
-                rate_on_server = True
+                rate_on_server[message.channel] = True
             elif re.search(r'\boff\b', message.content):
-                rate_on_server = False
+                rate_on_server[message.channel] = False
         else:
             content = re.sub(r'([a-z]*):(//)?\S*\.+([^\s]*)', '', message.content).strip()
             content = ' '.join(content.split())
@@ -102,9 +104,9 @@ async def on_message(message):
                     await client.send_message(message.channel,"Voici un clown pour détendre l'atmosphère : \N{CLOWN FACE}")
                     prev_analys_value.clear()
                 an_sen = analyse_sentence(cl, message.clean_content)
-                if rate_on_server:
+                if rate_on_server[message.channel]:
                     await client.send_message(message.channel,an_sen)
-                print(an_sen)
+                print(f"{content}\n{an_sen}")
 
 
 @client.event
